@@ -1,0 +1,872 @@
+/*------------------------------------*\
+  全局设定
+\*------------------------------------*/
+
+:root {
+    --shadow-z0: 0px 0px 0px 0px rgba(0, 0, 0, 0.2), 0px 0px 0px 0px rgba(0, 0, 0, 0.14), 0px 0px 0px 0px rgba(0, 0, 0, 0.12);
+    --shadow-z1: 0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+    --shadow-z2: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+    --shadow-z3: 0px 3px 3px -2px rgba(0, 0, 0, 0.2), 0px 3px 4px 0px rgba(0, 0, 0, 0.14), 0px 1px 8px 0px rgba(0, 0, 0, 0.12);
+    --shadow-z4: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+    --shadow-z5: 0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 5px 8px 0px rgba(0, 0, 0, 0.14), 0px 1px 14px 0px rgba(0, 0, 0, 0.12);
+    --shadow-z6: 0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 6px 10px 0px rgba(0, 0, 0, 0.14), 0px 1px 18px 0px rgba(0, 0, 0, 0.12);
+    --shadow-z7: 0px 4px 5px -2px rgba(0, 0, 0, 0.2), 0px 7px 10px 1px rgba(0, 0, 0, 0.14), 0px 2px 16px 1px rgba(0, 0, 0, 0.12);
+    --shadow-z8: 0px 5px 5px -3px rgba(0, 0, 0, 0.2), 0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12);
+    --shadow-z9: 0px 5px 6px -3px rgba(0, 0, 0, 0.2), 0px 9px 12px 1px rgba(0, 0, 0, 0.14), 0px 3px 16px 2px rgba(0, 0, 0, 0.12);
+    --shadow-z10: 0px 6px 6px -3px rgba(0, 0, 0, 0.2), 0px 10px 14px 1px rgba(0, 0, 0, 0.14), 0px 4px 18px 3px rgba(0, 0, 0, 0.12);
+    --shadow-z11: 0px 6px 7px -4px rgba(0, 0, 0, 0.2), 0px 11px 15px 1px rgba(0, 0, 0, 0.14), 0px 4px 20px 3px rgba(0, 0, 0, 0.12);
+    --shadow-z12: 0px 7px 8px -4px rgba(0, 0, 0, 0.2), 0px 12px 17px 2px rgba(0, 0, 0, 0.14), 0px 5px 22px 4px rgba(0, 0, 0, 0.12);
+    --shadow-z13: 0px 7px 8px -4px rgba(0, 0, 0, 0.2), 0px 13px 19px 2px rgba(0, 0, 0, 0.14), 0px 5px 24px 4px rgba(0, 0, 0, 0.12);
+    --shadow-z14: 0px 7px 9px -4px rgba(0, 0, 0, 0.2), 0px 14px 21px 2px rgba(0, 0, 0, 0.14), 0px 5px 26px 4px rgba(0, 0, 0, 0.12);
+    --shadow-z15: 0px 8px 9px -5px rgba(0, 0, 0, 0.2), 0px 15px 22px 2px rgba(0, 0, 0, 0.14), 0px 6px 28px 5px rgba(0, 0, 0, 0.12);
+    --shadow-z16: 0px 8px 10px -5px rgba(0, 0, 0, 0.2), 0px 16px 24px 2px rgba(0, 0, 0, 0.14), 0px 6px 30px 5px rgba(0, 0, 0, 0.12);
+    --shadow-z17: 0px 8px 11px -5px rgba(0, 0, 0, 0.2), 0px 17px 26px 2px rgba(0, 0, 0, 0.14), 0px 6px 32px 5px rgba(0, 0, 0, 0.12);
+    --shadow-z18: 0px 9px 11px -5px rgba(0, 0, 0, 0.2), 0px 18px 28px 2px rgba(0, 0, 0, 0.14), 0px 7px 34px 6px rgba(0, 0, 0, 0.12);
+    --shadow-z19: 0px 9px 12px -6px rgba(0, 0, 0, 0.2), 0px 19px 29px 2px rgba(0, 0, 0, 0.14), 0px 7px 36px 6px rgba(0, 0, 0, 0.12);
+    --shadow-z20: 0px 10px 13px -6px rgba(0, 0, 0, 0.2), 0px 20px 31px 3px rgba(0, 0, 0, 0.14), 0px 8px 38px 7px rgba(0, 0, 0, 0.12);
+    --shadow-z21: 0px 10px 13px -6px rgba(0, 0, 0, 0.2), 0px 21px 33px 3px rgba(0, 0, 0, 0.14), 0px 8px 40px 7px rgba(0, 0, 0, 0.12);
+    --shadow-z22: 0px 10px 14px -6px rgba(0, 0, 0, 0.2), 0px 22px 35px 3px rgba(0, 0, 0, 0.14), 0px 8px 42px 7px rgba(0, 0, 0, 0.12);
+    --shadow-z23: 0px 11px 14px -7px rgba(0, 0, 0, 0.2), 0px 23px 36px 3px rgba(0, 0, 0, 0.14), 0px 9px 44px 8px rgba(0, 0, 0, 0.12);
+    --shadow-z24: 0px 11px 15px -7px rgba(0, 0, 0, 0.2), 0px 24px 38px 3px rgba(0, 0, 0, 0.14), 0px 9px 46px 8px rgba(0, 0, 0, 0.12);
+    --standard-curve: cubic-bezier(0.4, 0.0, 0.2, 1);
+    --deceleration-curve: cubic-bezier(0.0, 0.0, 0.2, 1);
+    --acceleration-curve: cubic-bezier(0.4, 0.0, 1, 1);
+    --sharp-curve: cubic-bezier(0.4, 0.0, 0.6, 1);
+    --states-overlay-level: 0;
+    --ripple-offset-parameter: 0.3;
+}
+
+* {
+    position: relative;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    animation-fill-mode: both;
+}
+
+*::after, *::before {
+    animation-fill-mode: both;
+}
+
+ul {
+    list-style-type: none;
+}
+
+button {
+    display: inline-flex;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+i {
+    display: flex;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+    color: var(--primary-text-color);
+}
+
+/*------------------------------------*\
+  状态
+\*------------------------------------*/
+
+.states {
+    z-index: var(--states-overlay-level);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.states>div {
+    position: absolute;
+    width: inherit;
+    height: inherit;
+    opacity: 0;
+    background-color: var(--states-color);
+    transition-property: opacity;
+    transition-duration: 195ms;
+    transition-timing-function: linear;
+}
+
+.states .on {
+    transition-duration: 225ms;
+}
+
+.states .hover[class~=on] {
+    opacity: var(--hover-alpha);
+}
+
+.states .focus[class~=on] {
+    opacity: var(--focus-alpha);
+}
+
+.tab-bar .button[class~=active] {
+    --states-color: var(--accent-color);
+    --hover-alpha: 0.08;
+    --focus-alpha: 0.24;
+    --ripple-foreground-alpha: 0.32;
+}
+
+.disabled {
+    pointer-events: none;
+}
+
+/*------------------------------------*\
+  涟漪
+\*------------------------------------*/
+
+.ripples {
+    z-index: 48;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: inherit;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.unbounded .ripples {
+    --ripple-offset-parameter: 1;
+    overflow: visible;
+}
+
+.ripple-background {
+    position: absolute;
+    width: inherit;
+    height: inherit;
+    border-radius: inherit;
+    background-color: var(--states-color);
+    opacity: 0;
+    transition-property: opacity;
+    transition-duration: 480ms;
+    transition-timing-function: linear;
+}
+
+.ripple-background[class~=on] {
+    transition-duration: 120ms;
+    opacity: var(--hover-alpha);
+}
+
+.ripple-foreground {
+    position: absolute;
+    width: min(var(--ripple-diameter), 700px);
+    height: min(var(--ripple-diameter), 700px);
+    left: calc(var(--ripple-origin-left) - min(var(--ripple-diameter), 700px) / 2);
+    top: calc(var(--ripple-origin-top) - min(var(--ripple-diameter), 700px) / 2);
+    display: flex;
+}
+
+.ripple-foreground[class~=on] {
+    animation-name: rippleForegroundFadeOut, rippleForegroundMove;
+    animation-duration: 400ms, 800ms;
+    animation-timing-function: linear, cubic-bezier(0.17, 0.74, 0.4, 1);
+}
+
+@keyframes rippleForegroundFadeOut {
+    0% {
+        opacity: var(--ripple-foreground-alpha);
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes rippleForegroundMove {
+    0% {
+        transform: translate(0px, 0px);
+    }
+    37.5% {
+        transform: translate(calc(var(--targets-center-offset-x) * var(--ripple-offset-parameter)), calc(var(--targets-center-offset-y) * var(--ripple-offset-parameter)));
+    }
+    100% {
+        transform: translate(calc(var(--targets-center-offset-x) * var(--ripple-offset-parameter)), calc(var(--targets-center-offset-y) * var(--ripple-offset-parameter)));
+    }
+}
+
+.ripple-foreground[class~=on]::after {
+    content: "";
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: var(--states-color);
+    animation-name: rippleForegroundExpand;
+    animation-duration: 800ms;
+    animation-timing-function: cubic-bezier(0.17, 0.74, 0.4, 1);
+}
+
+@keyframes rippleForegroundExpand {
+    0% {
+        transform: scale(0);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/*------------------------------------*\
+  工具栏
+\*------------------------------------*/
+
+.app-bar {
+    position: absolute;
+    display: flex;
+    box-sizing: border-box;
+    width: 100%;
+    height: var(--increment);
+    padding-left: calc(var(--keyline) - 12px);
+    padding-right: calc(var(--keyline) - 12px);
+    align-items: center;
+    color: var(--secondary-text-color);
+}
+
+.app-bar .start, .app-bar .end {
+    display: flex;
+    flex-grow: 1;
+    align-items: center;
+}
+
+.app-bar .start {
+    justify-content: flex-start;
+}
+
+.app-bar .start>h6 {
+    margin-left: 12px;
+}
+
+.app-bar .start button+h6 {
+    margin-left: 20px;
+}
+
+.app-bar .end {
+    justify-content: flex-end;
+}
+
+/*------------------------------------*\
+  标签栏
+\*------------------------------------*/
+
+.tab-bar {
+    width: 100%;
+    height: 48px;
+    align-self: flex-end;
+    display: flex;
+    align-items: center;
+}
+
+.tab-bar .button {
+    height: 100%;
+    min-width: 72px;
+    padding: 0 12px;
+}
+
+.tab-bar .button::after {
+    content: "";
+    position: absolute;
+    align-self: flex-end;
+    width: 100%;
+    height: 2px;
+}
+
+.tab-bar .button[class~=active] {
+    color: var(--accent-color);
+}
+
+.tab-bar .button[class~=active]::after {
+    background-color: currentColor;
+}
+
+/*------------------------------------*\
+  按钮
+\*------------------------------------*/
+
+.button {
+    align-items: center;
+    justify-content: center;
+    min-width: 64px;
+    height: 36px;
+    padding: 0 8px;
+    border-radius: 2px;
+    font-family: inherit;
+    text-decoration: none;
+    color: inherit;
+    white-space: nowrap;
+    text-transform: uppercase;
+}
+
+.icon-button {
+    --ripple-offset-parameter: 1;
+    min-width: unset;
+    height: unset;
+    padding: 12px;
+    margin: 0;
+    border-radius: 50%;
+}
+
+.material-icons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.icon-button[data-narrow-icon] i {
+    width: 12px;
+}
+
+.fab {
+    width: 56px;
+    height: 56px;
+    padding: 0;
+    background-color: #fafafa;
+}
+
+.fab::before {
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    border-bottom: 1px solid rgba(33, 33, 33, 0.1);
+}
+
+/*------------------------------------*\
+  卡片
+\*------------------------------------*/
+
+.card {
+    display: flex;
+    height: fit-content;
+    flex-direction: column;
+    border-radius: 2px;
+    background-color: var(--surface-background-color);
+}
+
+.card p {
+    color: var(--primary-text-color);
+}
+
+.card .buttons {
+    display: flex;
+    padding: 8px 0;
+}
+
+.card .button {
+    margin-left: 8px;
+}
+
+.fab::before,
+.card::before,
+.menu ul::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: calc(100% - 2px);
+    border-radius: inherit;
+}
+
+/*------------------------------------*\
+  列表
+\*------------------------------------*/
+
+.list {
+    padding-left: calc(var(--keyline) - 12px);
+    padding-right: calc(var(--keyline) - 12px);
+    display: flex;
+    align-items: center;
+}
+
+.list[class~=one] {
+    height: 48px;
+}
+
+.list[class~=one] span {
+    line-height: unset;
+}
+
+.list[class~=two] {
+    height: 72px;
+}
+
+.list[class~=two]>span>span {
+    margin-top: 8px;
+    line-height: 14px;
+}
+
+.list span {
+    display: block;
+}
+
+.list>span {
+    margin-left: 12px;
+    color: var(--primary-text-color);
+}
+
+.list>span>span {
+    color: var(--secondary-text-color);
+}
+
+.subheader {
+    height: 48px;
+    padding-left: calc(var(--keyline) - 12px);
+    padding-right: calc(var(--keyline) - 12px);
+    display: flex;
+    align-items: center;
+    color: var(--primary-color);
+}
+
+.subheader span {
+    line-height: unset;
+    padding-left: 12px;
+}
+
+/*------------------------------------*\
+  分割线
+\*------------------------------------*/
+
+.divider {
+    width: 100%;
+    height: 0;
+    margin: 0;
+    display: flex;
+}
+
+.divider::before {
+    content: "";
+    position: absolute;
+    top: -0.5px;
+    width: 100%;
+    height: 1px;
+    background-color: rgba(0, 0, 0, 0.12);
+}
+
+/*------------------------------------*\
+  菜单
+\*------------------------------------*/
+
+.menu-wrapper {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    padding: 24px 0 48px 0;
+    display: flex;
+    flex-direction: column;
+    filter: drop-shadow(0px 5px 2.5px rgba(0, 0, 0, 0.2)) drop-shadow(0px 8px 5px rgba(0, 0, 0, 0.14)) drop-shadow(0px 3px 7px rgba(0, 0, 0, 0.12));
+    visibility: hidden;
+}
+
+.menu-wrapper[class~=on] {
+    visibility: visible;
+}
+
+.menu-wrapper[class~=enter] {
+    --end-opacity: 1;
+    animation-name: standardFadeIn;
+    animation-duration: 100ms;
+    animation-timing-function: linear;
+}
+
+.menu-wrapper[class~=exit] {
+    animation-name: standardFadeOut;
+    animation-duration: 195ms;
+    animation-timing-function: linear;
+}
+
+.menu {
+    min-width: calc(var(--increment) * 2);
+}
+
+.menu-wrapper[class~=enter] .menu {
+    animation-name: menuRevealYIn;
+    animation-duration: 300ms;
+    animation-timing-function: var(--standard-curve);
+}
+
+@keyframes menuRevealYIn {
+    0% {
+        clip-path: inset(0px 0px 100% 0px);
+    }
+    100% {
+        clip-path: inset(0px 0px 0% 0px);
+    }
+}
+
+.menu ul {
+    padding: 8px 0;
+    background-color: var(--dialog-background-color);
+    border-radius: 2px;
+}
+
+.menu-wrapper[class~=enter] .menu ul {
+    animation-name: menuRevealXIn;
+    animation-duration: 120ms;
+    animation-timing-function: var(--deceleration-curve);
+}
+
+@keyframes menuRevealXIn {
+    0% {
+        clip-path: inset(0px 0px 0px 100%);
+    }
+    100% {
+        clip-path: inset(0px 0px 0px 0%);
+    }
+}
+
+.menu li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 4px;
+}
+
+.menu .subheader {
+    height: 40px;
+    padding: 0 16px;
+}
+
+.menu .subheader span {
+    padding: 0;
+}
+
+/*------------------------------------*\
+  控件
+\*------------------------------------*/
+
+.check-box svg, .radio-button svg {
+    width: 24px;
+    height: 24px;
+}
+
+.check-box path, .radio-button path {
+    animation-timing-function: var(--standard-curve);
+    animation-fill-mode: forwards;
+}
+
+.check-box[class~=checked], .radio-button[class~=checked] {
+    --states-color: var(--primary-color);
+}
+
+.check-box[class~=unchecked] path {
+    fill: var(--secondary-text-color);
+    d: path("M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z");
+}
+
+.check-box[class~=checked] path {
+    fill: var(--primary-color);
+    d: path("M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.11 0 2-.9 2-2V5c0-1.1-.89-2-2-2zm-9 14l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z");
+}
+
+.check-box[class~=to-unchecked] path {
+    animation-name: checkBoxToUncheckedA, checkBoxToUncheckedB;
+    animation-duration: 200ms, 300ms;
+    animation-delay: 0ms, 200ms;
+}
+
+@keyframes checkBoxToUncheckedA {
+    0% {
+        fill: var(--primary-color);
+        d: path("M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.11 0 2-.9 2-2V5c0-1.1-.89-2-2-2zm-9 14l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z");
+    }
+    100% {
+        fill: var(--secondary-text-color);
+        d: path("M18.3,3.9H5.7c-1,0-1.8,0.8-1.8,1.8v12.6c0,1,0.8,1.8,1.8,1.8h12.6c1,0,1.8-0.8,1.8-1.8V5.7C20.1,4.7,19.3,3.9,18.3,3.9zM12,13.4L10.6,12l1.4-1.4l0,0l0,0l1.4,1.4L12,13.4z");
+    }
+}
+
+@keyframes checkBoxToUncheckedB {
+    0% {
+        d: path("M13,11v2h-2v-2H13 M18.3,3.9H5.7c-1,0-1.8,0.8-1.8,1.8v12.6c0,1,0.8,1.8,1.8,1.8h12.6c1,0,1.8-0.8,1.8-1.8V5.7C20.1,4.7,19.3,3.9,18.3,3.9z");
+    }
+    100% {
+        d: path("M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z");
+    }
+}
+
+.check-box[class~=to-checked] path {
+    animation-name: checkBoxToCheckedA, checkBoxToCheckedB;
+    animation-duration: calc(500ms / 3), calc(500ms * 2 / 3);
+    animation-delay: 0ms, calc(500ms / 3);
+}
+
+@keyframes checkBoxToCheckedA {
+    0% {
+        fill: var(--secondary-text-color);
+        d: path("M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z");
+    }
+    100% {
+        fill: var(--primary-color);
+        d: path("M13,11v2h-2v-2H13 M18.3,3.9H5.7c-1,0-1.8,0.8-1.8,1.8v12.6c0,1,0.8,1.8,1.8,1.8h12.6c1,0,1.8-0.8,1.8-1.8V5.7C20.1,4.7,19.3,3.9,18.3,3.9z");
+    }
+}
+
+@keyframes checkBoxToCheckedB {
+    0% {
+        d: path("M18.3,3.9H5.7c-1,0-1.8,0.8-1.8,1.8v12.6c0,1,0.8,1.8,1.8,1.8h12.6c1,0,1.8-0.8,1.8-1.8V5.7C20.1,4.7,19.3,3.9,18.3,3.9zM12,13.4L10.6,12l1.4-1.4l0,0l0,0l1.4,1.4L12,13.4z");
+    }
+    100% {
+        d: path("M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.11 0 2-.9 2-2V5c0-1.1-.89-2-2-2zm-9 14l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z");
+    }
+}
+
+.radio-button[class~=checked] path {
+    fill: var(--primary-color);
+    d: path("M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zm0-5C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z");
+}
+
+.radio-button[class~=unchecked] path {
+    fill: var(--secondary-text-color);
+    d: path("M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z");
+}
+
+.radio-button[class~=to-unchecked] path {
+    animation-name: radioButtonToUncheckedA, radioButtonToUncheckedB;
+    animation-duration: 200ms, 300ms;
+    animation-delay: 0ms, 200ms;
+}
+
+@keyframes radioButtonToUncheckedA {
+    0% {
+        fill: var(--primary-color);
+        d: path("M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zm0-5C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z");
+    }
+    100% {
+        fill: var(--secondary-text-color);
+        d: path("M12,4.8C8,4.8,4.8,8,4.8,12S8,19.2,12,19.2s7.2-3.2,7.2-7.2S16,4.8,12,4.8z M12,3c-5,0-9,4-9,9s4,9,9,9s9-4,9-9S17,3,12,3zM12,19.2c-4,0-7.2-3.2-7.2-7.2S8,4.8,12,4.8S19.2,8,19.2,12S16,19.2,12,19.2z");
+    }
+}
+
+@keyframes radioButtonToUncheckedB {
+    0% {
+        d: path("M12,3c-4.9679999,0-9,4.0320001-9,9s4.0320001,9,9,9s9-4.0319996,9-9S16.9680004,3,12,3z M12,12.0500002c-0.0276251,0-0.0500002-0.0223751-0.0500002-0.0500002S11.9723749,11.9499998,12,11.9499998S12.0500002,11.9723749,12.0500002,12S12.0276251,12.0500002,12,12.0500002z");
+    }
+    100% {
+        d: path("M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z");
+    }
+}
+
+.radio-button[class~=to-checked] path {
+    animation-name: radioButtonToCheckedA, radioButtonToCheckedB;
+    animation-duration: calc(500ms / 3), calc(500ms * 2 / 3);
+    animation-delay: 0ms, calc(500ms / 3);
+}
+
+@keyframes radioButtonToCheckedA {
+    0% {
+        fill: var(--secondary-text-color);
+        d: path("M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z");
+    }
+    100% {
+        fill: var(--primary-color);
+        d: path("M12,3c-4.9679999,0-9,4.0320001-9,9s4.0320001,9,9,9s9-4.0319996,9-9S16.9680004,3,12,3z M12,12.0500002c-0.0276251,0-0.0500002-0.0223751-0.0500002-0.0500002S11.9723749,11.9499998,12,11.9499998S12.0500002,11.9723749,12.0500002,12S12.0276251,12.0500002,12,12.0500002z");
+    }
+}
+
+@keyframes radioButtonToCheckedB {
+    0% {
+        d: path("M12,4.8C8,4.8,4.8,8,4.8,12S8,19.2,12,19.2s7.2-3.2,7.2-7.2S16,4.8,12,4.8z M12,3c-5,0-9,4-9,9s4,9,9,9s9-4,9-9S17,3,12,3zM12,19.2c-4,0-7.2-3.2-7.2-7.2S8,4.8,12,4.8S19.2,8,19.2,12S16,19.2,12,19.2z");
+    }
+    100% {
+        d: path("M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zm0-5C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z");
+    }
+}
+
+/*------------------------------------*\
+  条形通知
+\*------------------------------------*/
+
+.snackbar {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    max-width: 568px;
+    min-height: 48px;
+    background-color: #323232;
+    padding: 0 var(--keyline);
+    display: flex;
+    align-items: center;
+    box-shadow: var(--shadow-z6);
+    visibility: hidden;
+    transition-property: transform;
+    transition-duration: 180ms;
+    transition-timing-function: var(--standard-curve);
+}
+
+.snackbar[class~=fixed] {
+    transform: translateY(100%);
+}
+
+.snackbar[class~=float] {
+    border-radius: 2px;
+    bottom: var(--keyline);
+    transform: translateY(calc(100% + 24px));
+}
+
+.snackbar[class~=on] {
+    visibility: visible;
+}
+
+.snackbar[class~=enter] {
+    transition-duration: 250ms;
+    transform: translateY(0px);
+}
+
+.snackbar p {
+    color: #ffffff;
+    line-height: 26px;
+    padding: 11px 0 7px 0;
+}
+
+/*------------------------------------*\
+  字体排印
+\*------------------------------------*/
+
+h1, .display4 {
+    font-size: 112px;
+    line-height: 112px;
+    font-weight: 300;
+    letter-spacing: -0.02em;
+}
+
+h2, .display3 {
+    font-size: 56px;
+    line-height: 52px;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+}
+
+h3, .display2 {
+    font-size: 45px;
+    line-height: 45px;
+    font-weight: 400;
+    letter-spacing: 0em;
+}
+
+h4, .display1 {
+    font-size: 34px;
+    line-height: 30px;
+    font-weight: 400;
+    letter-spacing: 0em;
+}
+
+h5, .headline {
+    font-size: 24px;
+    line-height: 26px;
+    font-weight: 400;
+    letter-spacing: 0em;
+}
+
+h6, .title {
+    font-size: 20px;
+    line-height: 20px;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+}
+
+.subheading {
+    font-size: 16px;
+    line-height: 20px;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+}
+
+.body2 {
+    font-size: 14px;
+    line-height: 18px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+}
+
+.body1 {
+    font-size: 14px;
+    line-height: 18px;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+}
+
+.caption {
+    font-size: 12px;
+    line-height: 18px;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+}
+
+/*------------------------------------*\
+  预设动画
+\*------------------------------------*/
+
+@keyframes standardFadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: var(--end-opacity);
+    }
+}
+
+@keyframes standardFadeOut {
+    100% {
+        opacity: 0;
+    }
+}
+
+/*------------------------------------*\
+  主题
+\*------------------------------------*/
+
+@media (prefers-color-scheme: light) {
+    :root {
+        --theme-base-color: #ffffff;
+        --states-base-color: #000000;
+        --surface-background-color: #fafafa;
+        --dialog-background-color: #ffffff;
+        --primary-text-color: rgba(0, 0, 0, 0.87);
+        --secondary-text-color: rgba(0, 0, 0, 0.54);
+        --hint-text-color: rgba(0, 0, 0, 0.38);
+    }
+    .app-bar {
+        background-color: #f5f5f5;
+    }
+    .card::before,
+    .menu ul::before {
+        border-top: 1px solid rgba(255, 255, 255, 0.4);
+        border-bottom: 1px solid rgba(33, 33, 33, 0.1);
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --theme-base-color: #000000;
+        --states-base-color: #ffffff;
+        --surface-background-color: #212121;
+        --dialog-background-color: #424242;
+        --primary-text-color: rgba(255, 255, 255, 1);
+        --secondary-text-color: rgba(255, 255, 255, 0.7);
+        --hint-text-color: rgba(255, 255, 255, 0.5);
+    }
+    .app-bar {
+        background-color: #212121;
+    }
+    .card::before,
+    .menu ul::before {
+        border-top: 1px solid rgba(255, 255, 255, 0.2);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    }
+}
+
+/*------------------------------------*\
+  跨屏幕
+\*------------------------------------*/
+
+@media screen and (min-width:600px) {
+    .snackbar[class~=fixed] {
+        border-radius: 2px 2px 0 0;
+    }
+}

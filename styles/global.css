@@ -1,0 +1,1981 @@
+/*------------------------------------*\
+  全局设定
+\*------------------------------------*/
+
+html, body {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    user-select: none;
+    vertical-align: baseline;
+    word-wrap: break-word;
+    word-break: break-all;
+    font-family: 'Roboto', 'Noto Sans SC', sans-serif;
+    text-rendering: optimizeLegibility;
+    image-rendering: -webkit-optimize-contrast;
+    -webkit-font-smoothing: antialiased;
+    -webkit-tap-highlight-color: transparent;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+img {
+    -webkit-user-drag: none;
+}
+
+body {
+    --increment: 64px;
+    --keyline: 24px;
+}
+
+@font-face {
+    font-family: 'Material Like Icons';
+    font-style: normal;
+    font-weight: 400;
+    src: url(../resources/Material-Like-Icon.woff) format('woff');
+    font-display: swap;
+}
+
+.material-icons[class~=alt] {
+    font-family: 'Material Like Icons';
+}
+
+/*------------------------------------*\
+  主题
+\*------------------------------------*/
+
+.button, .page button, .selection-action, .icon-button, .settings .list {
+    --states-color: var(--states-base-color);
+    --hover-alpha: 0.04;
+    --focus-alpha: 0.12;
+    --ripple-foreground-alpha: 0.16;
+}
+
+#ice-box {
+    --primary-color: #0091ea;
+    --accent-color: #03a9f4;
+}
+
+#ice-box .fab {
+    --hover-alpha: 0.08;
+    --focus-alpha: 0.24;
+    --ripple-foreground-alpha: 0.32;
+}
+
+.extra-information .card .button {
+    --states-color: #0091EA;
+    --hover-alpha: 0.04;
+    --focus-alpha: 0.12;
+    --ripple-foreground-alpha: 0.16;
+    color: #0091EA;
+}
+
+/*------------------------------------*\
+  应用栏
+\*------------------------------------*/
+
+body>.app-bar {
+    position: relative;
+    justify-content: center;
+    background-color: transparent;
+}
+
+.simulator-width-controller {
+    position: absolute;
+    width: 1024px;
+    height: 8px;
+    display: flex;
+    justify-content: center;
+}
+
+.simulator-width-controller>div {
+    position: absolute;
+    height: 100%;
+    box-sizing: unset;
+    border-width: 2px;
+    border-style: solid;
+    border-top: 0;
+    border-bottom: 0;
+}
+
+.dp360 {
+    width: 360px;
+}
+
+.dp600 {
+    width: 600px;
+}
+
+.dp1024 {
+    width: 1024px;
+}
+
+.simulator-width-controller>div:hover+div, .simulator-width-controller>div:hover+div+div {
+    background-color: transparent;
+}
+
+body>.app-bar h6 {
+    display: none;
+}
+
+/*------------------------------------*\
+  模拟器全局
+\*------------------------------------*/
+
+.simulator {
+    width: var(--simulator-width);
+    height: var(--simulator-height);
+    margin-top: calc(var(--keyline) / 2 - 4px);
+    margin-bottom: var(--increment);
+    background-color: #000000;
+    box-shadow: var(--shadow-z2);
+    overflow: hidden;
+    filter: brightness(0);
+    transition-property: filter;
+    transition-duration: 400ms;
+    transition-timing-function: linear;
+}
+
+.simulator[class~=on] {
+    filter: brightness(1);
+}
+
+.simulator:hover {
+    cursor: url(../resources/cursors/left_ptr.png) 4 4, auto;
+}
+
+.simulator button:hover, .simulator .icon-button:hover {
+    cursor: url(../resources/cursors/hand2.png) 10 4, auto;
+}
+
+.system {
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.simulator[class~=on] .system {
+    animation-name: systemFadeIn;
+    animation-duration: 800ms;
+    animation-timing-function: var(--standard-curve);
+}
+
+@keyframes systemFadeIn {
+    0% {
+        filter: saturate(0%);
+    }
+    100% {
+        filter: saturate(100%);
+    }
+}
+
+/*------------------------------------*\
+  启动器
+\*------------------------------------*/
+
+.launcher-background {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: url(../resources/wallpaper.jpg);
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.simulator[class~=on] .launcher-background {
+    animation-name: wallpapaerFadeIn;
+    animation-duration: 800ms;
+    animation-timing-function: var(--deceleration-curve);
+}
+
+@keyframes wallpapaerFadeIn {
+    0% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.launcher-background::after, .launcher-background::before {
+    content: "";
+    width: 100%;
+    height: calc(3 * var(--increment));
+    opacity: 0.3;
+}
+
+.launcher-background::before {
+    background: linear-gradient(rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.5) 33%, rgba(0, 0, 0, 0) 100%);
+}
+
+.launcher-background::after {
+    background: linear-gradient(rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.5) 66%, rgba(0, 0, 0, 1) 100%);
+}
+
+.launcher-home {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.search-bar {
+    width: var(--launcher-search-bar-width);
+    height: 48px;
+    margin: calc(16px + var(--keyline)) 0 calc(var(--keyline) - 8px) 0;
+    border-radius: 2px;
+    background-color: #fafafa;
+    display: flex;
+    align-items: center;
+    align-self: center;
+    box-shadow: var(--shadow-z2);
+}
+
+.google-logo {
+    width: auto;
+    height: 20px;
+    margin-left: 16px;
+    margin-top: 2px;
+}
+
+.search-bar span {
+    margin: 0 0 0 auto;
+    color: rgba(0, 0, 0, 0.38);
+    font-family: 'Roboto Condensed', 'Noto Sans SC', sans-serif;
+    line-height: 48px;
+}
+
+.voice-command {
+    width: 24px;
+    height: 24px;
+    margin: 0 16px 0 20px;
+}
+
+.workspace {
+    display: grid;
+    flex-grow: 1;
+    grid-template-columns: repeat(var(--workspace-grid-columns), 1fr);
+    grid-template-rows: repeat(var(--workspace-grid-rows), 1fr);
+    align-items: center;
+    justify-items: center;
+    padding: var(--workspace-padding);
+    pointer-events: auto;
+}
+
+.launcher-app {
+    grid-row: var(--workspace-grid-rows)/calc(var(--workspace-grid-rows) + 1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.launcher-app img {
+    width: var(--workspace-icon-width);
+    filter: brightness(1) drop-shadow(0 0px 0px rgba(0, 0, 0, 0.2)) drop-shadow(0 0px 0px rgba(0, 0, 0, 0.14)) drop-shadow(0 0px 0px rgba(0, 0, 0, 0.12));
+    transition-property: filter;
+    transition-duration: 100ms;
+    transition-timing-function: linear;
+}
+
+.launcher-app img[class~=on] {
+    transition-duration: 150ms;
+    filter: brightness(1.1) drop-shadow(0 2px 2px rgba(0, 0, 0, 0.2)) drop-shadow(0 4px 2.5px rgba(0, 0, 0, 0.14)) drop-shadow(0 1px 5px rgba(0, 0, 0, 0.12));
+}
+
+.launcher-app span {
+    margin-top: 8px;
+    font-family: 'Roboto Condensed', 'Noto Sans SC', sans-serif;
+    font-size: var(--workspace-font-size);
+    line-height: var(--workspace-font-size);
+    color: #ffffff;
+    text-shadow: 0 1.83px 1px rgba(0, 0, 0, 0.26);
+}
+
+.page-indicator {
+    display: flex;
+    height: 12px;
+    margin-top: 8px;
+    justify-content: center;
+    align-items: center;
+}
+
+.dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #fafafa;
+    box-shadow: var(--shadow-z1);
+}
+
+.hotseat {
+    display: grid;
+    justify-items: center;
+    align-items: center;
+    height: calc(var(--workspace-icon-width) + 24px);
+    margin-bottom: 48px;
+    grid-template-columns: repeat(var(--hotseat-grid-columns), 1fr);
+    padding: var(--hotseat-padding);
+}
+
+.hotseat img {
+    height: var(--hotseat-icon-width);
+}
+
+/*------------------------------------*\
+  系统控件
+\*------------------------------------*/
+
+.system-bars {
+    position: absolute;
+    z-index: 48;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    justify-content: space-between;
+}
+
+.system-bars .status-bar {
+    display: flex;
+    height: 24px;
+    align-items: center;
+    color: rgba(255, 255, 255, 0.9);
+    pointer-events: auto;
+    animation-duration: 120ms;
+    animation-timing-function: var(--standard-curve);
+}
+
+.system-status {
+    display: flex;
+    align-items: center;
+    margin: 0 0 0 auto;
+}
+
+.wifi {
+    font-size: calc(24px * (28 / 37));
+    width: 16px;
+    margin-right: 2px;
+    display: inline-flex;
+    justify-content: center;
+}
+
+.signal {
+    font-size: 16px;
+    margin-right: 4.5px;
+}
+
+.battery {
+    font-size: 16px;
+    margin-right: 4px;
+}
+
+.status-bar>span {
+    margin-right: 8px;
+    line-height: unset;
+}
+
+.system-bars .navigation-bar {
+    display: flex;
+    height: 48px;
+    align-items: stretch;
+    justify-content: center;
+    color: rgba(255, 255, 255, 1);
+    pointer-events: auto;
+    transition-property: all;
+    transition-duration: 300ms;
+    transition-timing-function: linear;
+}
+
+.system-bars .navigation-bar i {
+    width: var(--navigation-bar-key-width);
+    margin: 0 var(--navigation-bar-key-margin);
+    font-size: 22px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    filter: drop-shadow(0 1.5px 0.5px rgba(0, 0, 0, 0.2)) drop-shadow(0 1px 1px rgba(0, 0, 0, 0.14)) drop-shadow(0 1px 2.5px rgba(0, 0, 0, 0.12));
+}
+
+.navigation-bar-ripples {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+
+.navigation-bar-ripples .ripple {
+    position: absolute;
+    left: calc(var(--navigation-bar-key-left) + (var(--navigation-bar-key-width) + var(--navigation-bar-key-margin) * 2) / 2 - var(--navigation-bar-ripple-width) / 2);
+    width: calc(var(--navigation-bar-key-width) * 1.35);
+    max-width: 128px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    opacity: 1;
+    transition-property: opacity;
+    transition-duration: 450ms;
+    transition-timing-function: cubic-bezier(0, 0, 0.8, 1);
+}
+
+.navigation-bar-ripples .ripple[class~=on] {
+    opacity: 0;
+}
+
+.navigation-bar-ripples .ripple::after {
+    content: "";
+    width: 0%;
+    height: 100%;
+    border-radius: 24px;
+    background-color: rgba(255, 255, 255, 0.2);
+    animation-name: navigationBarRippleOn;
+    animation-duration: 350ms;
+    animation-timing-function: cubic-bezier(0.15, 1, 0.15, 1);
+}
+
+@keyframes navigationBarRippleOn {
+    0% {
+        width: 0%;
+    }
+    100% {
+        width: 100%;
+    }
+}
+
+/*------------------------------------*\
+  应用程序
+\*------------------------------------*/
+
+.applications {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+
+.application {
+    display: flex;
+    flex-grow: 1;
+    max-width: 100%;
+    max-height: 100%;
+    visibility: hidden;
+}
+
+.application[class~=on] {
+    visibility: visible;
+    pointer-events: auto;
+}
+
+.application[class~=exit] {
+    animation-name: applicationDefaultExit;
+    animation-duration: 200ms;
+    animation-timing-function: var(--acceleration-curve);
+}
+
+@keyframes applicationDefaultExit {
+    0% {
+        transform: translateY(0%);
+    }
+    100% {
+        transform: translateY(100%);
+    }
+}
+
+/*------------------------------------*\
+  应用程序--冰箱
+\*------------------------------------*/
+
+#ice-box {
+    --sheet-height-decrement: 0px;
+    --secondary-action-reveal-radius: 0px;
+    --control-panel-height: 0px;
+    --status-bar-increment: 24px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+#ice-box>.scrim {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #000000;
+    opacity: 0.4;
+    animation-timing-function: linear;
+}
+
+#ice-box[class~=custom-enter]>.scrim {
+    --end-opacity: 0.4;
+    animation-name: standardFadeIn;
+    animation-duration: 200ms;
+}
+
+#ice-box[class~=custom-exit]>.scrim {
+    animation-name: standardFadeOut;
+    animation-delay: 150ms;
+    animation-duration: 100ms;
+}
+
+.sheet {
+    position: absolute;
+    width: 100%;
+    max-width: 768px;
+    max-height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    overflow-y: scroll;
+    pointer-events: auto;
+}
+
+.sheet::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: calc(100% - 2px);
+    border-radius: inherit;
+}
+
+#ice-box[class~=custom-enter]>.sheet, #ice-box[class~=custom-enter] .navigation-bar::before {
+    animation-name: standardSlideIn;
+    animation-duration: 350ms;
+    animation-timing-function: var(--deceleration-curve);
+}
+
+@keyframes standardSlideIn {
+    0% {
+        transform: translateY(100%);
+    }
+    100% {
+        transform: translateY(0%);
+    }
+}
+
+#ice-box[class~=custom-exit]>.sheet, #ice-box[class~=custom-exit] .navigation-bar::before {
+    animation-name: standardSlideOut;
+    animation-duration: 250ms;
+    animation-timing-function: var(--acceleration-curve);
+}
+
+@keyframes standardSlideOut {
+    0% {
+        transform: translateY(0%);
+    }
+    100% {
+        transform: translateY(100%);
+    }
+}
+
+#ice-box[class~=stable]>.sheet {
+    box-shadow: var(--shadow-z2);
+}
+
+#ice-box[class~=onedit]>.sheet, #ice-box[class~=onsettings]>.sheet {
+    animation-name: sheetExpandIn;
+    animation-duration: 400ms;
+    animation-timing-function: var(--standard-curve);
+}
+
+@keyframes sheetExpandIn {
+    0% {
+        height: var(--sheet-height);
+        filter: brightness(1);
+    }
+    100% {
+        height: calc(100% - var(--sheet-height-decrement));
+        filter: brightness(var(--sheet-darken-value));
+    }
+}
+
+#ice-box[class~=secondary-actions-exit] .sheet {
+    animation-name: sheetExpandOut;
+    animation-duration: 350ms;
+    animation-timing-function: var(--standard-curve);
+}
+
+@keyframes sheetExpandOut {
+    0% {
+        height: calc(100% - var(--sheet-height-decrement));
+        filter: brightness(var(--sheet-darken-value));
+    }
+    100% {
+        height: var(--sheet-height);
+        filter: brightness(1);
+    }
+}
+
+.sheet .tab-bar {
+    z-index: 4;
+    position: sticky;
+    top: 0;
+    align-items: flex-end;
+    color: var(--secondary-text-color);
+    background-color: inherit;
+    transition-property: height, transform, opacity;
+    transition-duration: 225ms;
+    transition-timing-function: var(--standard-curve);
+}
+
+.sheet .tab-bar[class~=off] {
+    height: 0px;
+    visibility: hidden;
+}
+
+.sheet .tab-bar .button {
+    flex-grow: 1;
+    height: 48px;
+}
+
+.pages {
+    display: flex;
+    padding-top: calc(var(--keyline) - 6px);
+    padding-bottom: calc(112px + var(--keyline) * 2);
+    transition-property: none;
+    transition-duration: 225ms;
+    transition-timing-function: var(--standard-curve);
+    animation-timing-function: var(--standard-curve);
+}
+
+#ice-box[class~=onselect]:not(.custom-exit) .pages {
+    transition-property: padding;
+}
+
+#ice-box[class~=onselect] .pages {
+    padding-bottom: calc(var(--control-panel-height) + var(--keyline) + var(--folder-icon-width) / 2);
+}
+
+#ice-box[class~=control-panel-enter] .pages {
+    animation-name: sheetStretchIn;
+    animation-duration: 375ms;
+    animation-fill-mode: backwards;
+}
+
+@keyframes sheetStretchIn {
+    0% {
+        padding-bottom: calc(112px + var(--keyline) * 2);
+    }
+    100% {
+        padding-bottom: calc(var(--control-panel-height) + var(--keyline) + var(--folder-icon-width) / 2);
+    }
+}
+
+#ice-box[class~=control-panel-exit] .pages {
+    animation-name: sheetContractOut;
+    animation-duration: 300ms;
+}
+
+@keyframes sheetContractOut {
+    0% {
+        padding-bottom: calc(var(--control-panel-height) + var(--keyline) + var(--folder-icon-width) / 2);
+    }
+    100% {
+        padding-bottom: calc(112px + var(--keyline) * 2);
+    }
+}
+
+.page {
+    width: var(--simulator-width);
+    max-width: 768px;
+    display: grid;
+    grid-row-gap: calc(var(--keyline) / 2 + 4px);
+    grid-template-columns: repeat(var(--ice-box-grid-columns), 1fr);
+    align-content: start;
+    align-items: start;
+}
+
+.page button, .drag-temp {
+    flex-direction: column;
+    align-items: center;
+    padding: 0 4px;
+}
+
+.page .ondrag img, .page .ondrag i, .page .ondrag span {
+    visibility: hidden;
+}
+
+.page>div .ripples {
+    --ripple-offset-parameter: 1;
+    overflow: unset;
+}
+
+.page>div .ripple-background {
+    width: var(--ripple-diameter);
+    height: var(--ripple-diameter);
+}
+
+.page button>img, .drag-temp img {
+    height: 40px;
+    margin-top: 6px;
+    transition-property: transform;
+    transition-duration: 195ms;
+    transition-timing-function: var(--standard-curve);
+}
+
+.page .selected>img, .drag-temp[class~=selected] img {
+    transition-duration: 225ms;
+    transform: scale(0.9);
+}
+
+.drag-temp[class~=enter] img {
+    animation-name: standardScaleChange;
+    animation-duration: 225ms;
+    animation-timing-function: var(--standard-curve);
+    animation-fill-mode: backwards;
+}
+
+@keyframes standardScaleChange {
+    0% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(0.9);
+    }
+}
+
+.page button>span, .drag-temp span {
+    width: 100%;
+    font-size: 13px;
+    line-height: 20px;
+    margin-top: 6px;
+    letter-spacing: 0;
+    text-align: center;
+    color: var(--secondary-text-color);
+    font-family: 'Roboto Condensed', 'Noto Sans SC', sans-serif;
+}
+
+.page button i, .drag-temp i {
+    position: absolute;
+    font-size: 18px;
+    color: var(--primary-color);
+    border-radius: 50%;
+    opacity: 0;
+    transform: translate(-20px, -4px);
+    transition-property: opacity, transform;
+    transition-duration: 195ms;
+    transition-timing-function: var(--standard-curve);
+}
+
+.page button[class~=selected] i, .drag-temp[class~=selected] i {
+    transition-duration: 225ms;
+    opacity: 1;
+    transform: translate(-18px, -2px);
+}
+
+.drag-temp[class~=enter] i {
+    animation-name: selectedIndicatorIn;
+    animation-duration: 225ms;
+    animation-timing-function: var(--standard-curve);
+    animation-fill-mode: backwards;
+}
+
+@keyframes selectedIndicatorIn {
+    0% {
+        opacity: 0;
+        transform: translate(-20px, -4px);
+    }
+    100% {
+        opacity: 1;
+        transform: translate(-18px, -2px);
+    }
+}
+
+.page button span::before, .drag-temp span::before {
+    content: "snowflake";
+    position: relative;
+    top: 1px;
+    margin-left: -13px;
+    display: inline-block;
+    line-height: 1;
+    letter-spacing: normal;
+    font-family: 'Material Like Icons';
+    color: var(--accent-color);
+    opacity: 0;
+    transform: scale(0) translateX(13px);
+    transition-property: opacity, margin, transform;
+    transition-duration: 195ms;
+    transition-timing-function: var(--standard-curve);
+}
+
+.page .freeze span::before {
+    transition-duration: 225ms;
+    opacity: 1;
+    margin-left: 0px;
+    transform: scale(1) translateX(0px);
+    margin-right: 2px;
+}
+
+.drag-temp[class~=freeze] span::before {
+    transition-property: none;
+    opacity: 1;
+    margin-left: 0px;
+    transform: none;
+    margin-right: 2px;
+}
+
+.drag-temp {
+    --drag-item-return-y-increment: 0px;
+    z-index: 14;
+    position: absolute;
+    width: calc(min(100%, 756px) / var(--ice-box-grid-columns));
+    pointer-events: none;
+    transition-property: none;
+    transition-duration: 195ms;
+    transition-timing-function: var(--standard-curve);
+    transform: translate(var(--drag-item-offset-x), var(--drag-item-offset-y));
+}
+
+.drag-temp[class~=exit] {
+    transition-property: transform;
+    transform: translate(0px, calc(0px - var(--drag-item-return-y-increment)));
+}
+
+#ice-box[class~=control-panel-enter] .drag-temp {
+    --drag-item-return-y-increment: (var(--control-panel-height) + var(--folder-icon-width) / 2 - 112px - var(--keyline));
+    transition-duration: 375ms;
+}
+
+.secondary-actions {
+    position: absolute;
+    width: 100%;
+    max-width: 768px;
+    height: 100%;
+    pointer-events: none;
+    will-change: clip-path;
+    animation-timing-function: var(--standard-curve);
+}
+
+.secondary-actions[class~=on] {
+    pointer-events: auto;
+}
+
+#ice-box[class~=onedit] {
+    --secondary-action-center-x: calc(50% - 52px - var(--keyline));
+}
+
+#ice-box[class~=onsettings] {
+    --secondary-action-center-x: calc(50% + 52px + var(--keyline));
+}
+
+.secondary-actions[class~=enter], .secondary-actions[class~=enter]~.system-bars-background .secondary-actions-layer {
+    animation-name: interfaceClipIn;
+    animation-duration: 400ms;
+}
+
+@keyframes interfaceClipIn {
+    0% {
+        clip-path: circle(0px at var(--secondary-action-center-x) calc(100% - 76px - var(--keyline)));
+    }
+    100% {
+        clip-path: circle(var(--secondary-action-reveal-radius) at var(--secondary-action-center-x) calc(100% - 76px - var(--keyline)));
+    }
+}
+
+.secondary-actions[class~=exit], .secondary-actions[class~=exit]~.system-bars-background .secondary-actions-layer {
+    animation-name: interfaceClipOut;
+    animation-duration: 350ms;
+}
+
+@keyframes interfaceClipOut {
+    0% {
+        clip-path: circle(var(--secondary-action-reveal-radius) at 50% calc(100% - 76px - var(--keyline)));
+    }
+    100% {
+        clip-path: circle(0px at 50% calc(100% - 76px - var(--keyline)));
+    }
+}
+
+.secondary-actions>div {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    overflow-y: scroll;
+    visibility: hidden;
+    animation-timing-function: var(--standard-curve);
+}
+
+.secondary-actions>div[class~=on] {
+    visibility: unset;
+}
+
+.secondary-actions>div[class~=enter], .secondary-actions[class~=enter]~.system-bars-background .secondary-actions-layer::before {
+    animation-name: secondaryInterfaceSlideIn;
+    animation-duration: 400ms;
+}
+
+@keyframes secondaryInterfaceSlideIn {
+    0% {
+        transform: translateY(calc(100% - var(--sheet-height)));
+    }
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+.secondary-actions>div[class~=exit], .secondary-actions[class~=exit]~.system-bars-background .secondary-actions-layer::before {
+    animation-name: secondaryInterfaceSlideOut;
+    animation-duration: 350ms;
+}
+
+@keyframes secondaryInterfaceSlideOut {
+    0% {
+        transform: translateY(0px);
+    }
+    100% {
+        transform: translateY(calc(100% - var(--sheet-height)));
+    }
+}
+
+.secondary-actions .app-bar {
+    position: sticky;
+    top: 0;
+    order: 1;
+    flex-shrink: 0;
+    align-items: flex-end;
+    height: calc(var(--increment) + var(--status-bar-increment));
+    box-shadow: var(--shadow-z2);
+    animation-timing-function: var(--standard-curve);
+}
+
+.secondary-actions .app-bar>div {
+    height: var(--increment);
+}
+
+.secondary-actions>div[class~=enter] .app-bar {
+    animation-name: secondaryInterfaceAppBarStretchIn;
+    animation-delay: 150ms;
+    animation-duration: 250ms;
+}
+
+@keyframes secondaryInterfaceAppBarStretchIn {
+    0% {
+        height: var(--increment);
+        box-shadow: var(--shadow-z0);
+    }
+    100% {
+        height: calc(var(--increment) + var(--status-bar-increment));
+        box-shadow: var(--shadow-z2);
+    }
+}
+
+.secondary-actions>div[class~=exit] .app-bar {
+    animation-name: secondaryInterfaceAppBarStretchOut;
+    animation-duration: 195ms;
+}
+
+@keyframes secondaryInterfaceAppBarStretchOut {
+    0% {
+        height: calc(var(--increment) + var(--status-bar-increment));
+        box-shadow: var(--shadow-z2);
+    }
+    100% {
+        height: var(--increment);
+        box-shadow: var(--shadow-z0);
+    }
+}
+
+.secondary-actions .tab-bar {
+    height: 100%;
+    margin-left: 12px;
+}
+
+.secondary-actions .tab-bar span {
+    font-weight: 500;
+}
+
+.secondary-actions .lists {
+    order: 2;
+    animation-timing-function: var(--standard-curve);
+}
+
+.secondary-actions>div[class~=enter] .lists {
+    --end-opacity: 1;
+    animation-name: standardFadeIn;
+    animation-delay: 75ms;
+    animation-duration: 225ms;
+}
+
+.secondary-actions>div[class~=exit] .lists {
+    animation-name: standardFadeOut;
+    animation-duration: 195ms;
+}
+
+.edit-list .lists li:first-of-type {
+    margin-top: calc(var(--keyline) / 2 - 4px);
+}
+
+.edit-list .lists li {
+    height: calc(var(--increment) + var(--keyline) / 2 - 4px);
+    transition-property: background-color;
+    transition-duration: 225ms;
+    transition-timing-function: linear;
+}
+
+.edit-list .lists li>img {
+    height: calc(var(--increment) - var(--keyline) / 2 - 12px);
+    margin-left: 12px;
+}
+
+.edit-list .lists li>span {
+    margin-left: 20px;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: 0.02em;
+}
+
+.edit-list .lists li>span>span {
+    margin-bottom: -4px;
+    font-size: 13px;
+    font-family: 'Roboto Condensed', 'Noto Sans SC', sans-serif;
+}
+
+.edit-list .lists li>i {
+    width: 48px;
+    height: 48px;
+    padding: 0;
+    margin: 0 0 0 auto;
+    align-items: center;
+    justify-content: center;
+}
+
+.menu-wrapper {
+    justify-content: flex-start;
+    align-items: flex-end;
+    padding-right: calc((100% - 768px) / 2);
+    padding-left: calc((100% - 768px) / 2);
+}
+
+.menu {
+    top: 8px;
+    right: 8px;
+    width: calc(var(--increment) * 4.5);
+}
+
+.main-actions {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    bottom: calc(48px + var(--keyline));
+}
+
+.main-actions {
+    position: absolute;
+    height: 56px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    bottom: calc(48px + var(--keyline));
+}
+
+.secondary-actions[class~=stable]:not(.exit)~.main-actions {
+    pointer-events: none;
+    visibility: hidden;
+}
+
+#ice-box[class~=onselect]:not(.control-panel-exit) .main-actions {
+    display: none;
+}
+
+#ice-box[class~=custom-enter] .main-actions .button:not(#frozen-all) {
+    --end-opacity: 1;
+    animation-name: standardFadeIn;
+    animation-delay: 150ms;
+    animation-duration: 200ms;
+    animation-timing-function: var(--deceleration-curve);
+}
+
+#ice-box[class~=custom-exit] .main-actions .button:not(#frozen-all) {
+    animation-name: standardFadeOut;
+    animation-duration: 150ms;
+    animation-timing-function: var(--acceleration-curve);
+}
+
+#ice-box[class~=onedit] .main-actions .button:not(#frozen-all), #ice-box[class~=onsettings] .main-actions .button:not(#frozen-all) {
+    animation-name: standardFadeOut;
+    animation-duration: 195ms;
+    animation-timing-function: var(--sharp-curve);
+}
+
+#ice-box[class~=secondary-actions-exit] .main-actions .button:not(#frozen-all) {
+    --end-opacity: 1;
+    animation-name: standardFadeIn;
+    animation-delay: 150ms;
+    animation-duration: 200ms;
+    animation-timing-function: var(--standard-curve);
+}
+
+#frozen-all {
+    width: 56px;
+    height: 56px;
+    margin: 0 var(--keyline);
+    box-shadow: var(--shadow-z4);
+    background-color: var(--primary-color);
+    color: #ffffff;
+}
+
+#frozen-all::before {
+    border-bottom: 1px solid rgba(26, 35, 126, 0.1);
+}
+
+#ice-box[class~=stable] #frozen-all {
+    transition-property: box-shadow;
+    transition-duration: 195ms;
+    transition-timing-function: var(--standard-curve);
+}
+
+#frozen-all:hover {
+    transition-duration: 225ms;
+    box-shadow: var(--shadow-z10);
+}
+
+#ice-box[class~=custom-enter] #frozen-all {
+    animation-name: fabGrowIn;
+    animation-delay: 125ms;
+    animation-duration: 225ms;
+    animation-timing-function: var(--deceleration-curve);
+}
+
+@keyframes fabGrowIn {
+    0% {
+        width: 0px;
+        height: 0px;
+    }
+    100% {
+        width: 56px;
+        height: 56px;
+    }
+}
+
+#ice-box[class~=custom-exit] #frozen-all {
+    animation-name: fabShrinkOut;
+    animation-duration: 195ms;
+    animation-timing-function: var(--acceleration-curve);
+}
+
+@keyframes fabShrinkOut {
+    0% {
+        width: 56px;
+        height: 56px;
+    }
+    100% {
+        width: 0px;
+        height: 0px;
+    }
+}
+
+#ice-box[class~=onedit] #frozen-all, #ice-box[class~=onsettings] #frozen-all {
+    animation-name: fabHoldMarginShrinkOut;
+    animation-duration: 300ms;
+    animation-timing-function: var(--sharp-curve);
+}
+
+@keyframes fabHoldMarginShrinkOut {
+    0% {
+        width: 56px;
+        height: 56px;
+        margin: 0 var(--keyline);
+    }
+    100% {
+        width: 0px;
+        height: 0px;
+        margin: 0 calc(var(--keyline) + 28px);
+    }
+}
+
+#ice-box[class~=secondary-actions-exit] #frozen-all {
+    animation-name: fabHoldMarginShrinkIn;
+    animation-delay: 125ms;
+    animation-duration: 225ms;
+    animation-timing-function: var(--standard-curve);
+}
+
+@keyframes fabHoldMarginShrinkIn {
+    0% {
+        width: 0px;
+        height: 0px;
+        margin: 0 calc(var(--keyline) + 28px);
+    }
+    100% {
+        width: 56px;
+        height: 56px;
+        margin: 0 var(--keyline);
+    }
+}
+
+#frozen-all i {
+    font-size: 36px;
+}
+
+#ice-box[class~=custom-enter] #frozen-all i {
+    animation-name: fabIconGrowIn;
+    animation-delay: 125ms;
+    animation-duration: 225ms;
+    animation-timing-function: var(--deceleration-curve);
+}
+
+#ice-box[class~=secondary-actions-exit] #frozen-all i {
+    animation-name: fabIconGrowIn;
+    animation-delay: 150ms;
+    animation-duration: 200ms;
+    animation-timing-function: var(--standard-curve);
+}
+
+@keyframes fabIconGrowIn {
+    0% {
+        opacity: 0;
+        transform: scale(0);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+#ice-box[class~=custom-exit] #frozen-all i {
+    animation-name: fabIconShrinkOut;
+    animation-duration: 175ms;
+    animation-timing-function: var(--acceleration-curve);
+}
+
+#ice-box[class~=onedit] #frozen-all i, #ice-box[class~=onsettings] #frozen-all i {
+    animation-name: fabIconShrinkOut;
+    animation-duration: 250ms;
+    animation-timing-function: var(--sharp-curve);
+}
+
+@keyframes fabIconShrinkOut {
+    0% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(0);
+    }
+}
+
+.control-panel {
+    position: absolute;
+    width: 100%;
+    max-width: 768px;
+    display: flex;
+    visibility: hidden;
+    flex-direction: column;
+    padding-bottom: var(--increment);
+    box-shadow: var(--shadow-z14);
+    animation-timing-function: var(--standard-curve);
+}
+
+.control-panel[class~=on] {
+    visibility: unset;
+}
+
+.control-panel[class~=enter] {
+    animation-name: controlPanelSlideIn;
+    animation-duration: 375ms;
+}
+
+@keyframes controlPanelSlideIn {
+    0% {
+        transform: translateY(100%);
+        box-shadow: var(--shadow-z0);
+    }
+    60% {
+        box-shadow: var(--shadow-z14);
+    }
+    100% {
+        transform: translateY(0%);
+        box-shadow: var(--shadow-z14);
+    }
+}
+
+.control-panel[class~=exit] {
+    animation-name: controlPanelSlideOut;
+    animation-duration: 300ms;
+}
+
+#ice-box[class~=custom-exit] .control-panel[class~=exit] {
+    animation-duration: 195ms;
+    animation-timing-function: var(--acceleration-curve);
+}
+
+@keyframes controlPanelSlideOut {
+    0% {
+        transform: translateY(0%);
+        box-shadow: var(--shadow-z14);
+    }
+    35% {
+        box-shadow: var(--shadow-z14);
+    }
+    100% {
+        transform: translateY(100%);
+        box-shadow: var(--shadow-z0);
+    }
+}
+
+.selection-folder {
+    position: absolute;
+    width: var(--folder-icon-width);
+    height: var(--folder-icon-width);
+    margin: 0 var(--keyline);
+    display: flex;
+    justify-content: center;
+    transform: scale(calc(2 / 3)) translateY(calc((var(--increment) - var(--folder-icon-width)) / 2));
+    pointer-events: auto;
+    transition-property: none;
+    transition-duration: 300ms;
+    transition-timing-function: var(--standard-curve);
+}
+
+.control-panel[class~=on] .selection-folder {
+    transition-property: transform;
+}
+
+.control-panel[class~=enter] .selection-folder, .control-panel[class~=stable]:not(.exit) .selection-folder {
+    transition-duration: 375ms;
+    transform: scale(1) translateY(-50%);
+}
+
+#ice-box[class~=custom-exit] .selection-folder {
+    transition-duration: 195ms;
+    transition-timing-function: var(--acceleration-curve);
+}
+
+.folder-body {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: rgba(245, 245, 245, 0.65);
+    box-shadow: var(--shadow-z2);
+    border-top: 1px solid rgba(255, 255, 255, 0.4);
+    border-bottom: 1px solid rgba(33, 33, 33, 0.1);
+    opacity: 0;
+    transition-property: opacity;
+    transition-duration: 195ms;
+    transition-timing-function: var(--standard-curve);
+}
+
+.selection-folder[class~=stable] .folder-body {
+    transition-duration: 225ms;
+    opacity: 1;
+}
+
+.selection-folder>img {
+    position: absolute;
+    height: 100%;
+    opacity: 0;
+    transition-property: height, transform, opacity;
+    transition-duration: 225ms;
+    animation-timing-function: var(--standard-curve);
+}
+
+.selection-folder img[class~=enter] {
+    animation-name: folderStackIconIn;
+    animation-duration: 225ms;
+    animation-fill-mode: backwards;
+}
+
+@keyframes folderStackIconIn {
+    0% {
+        height: 100%;
+        transform: translateY(0px);
+        opacity: 0;
+    }
+    100% {
+        height: calc((0.9 * var(--workspace-icon-width) + 3.6px) / 1.18);
+        transform: translateY(calc(var(--workspace-icon-width) + 4px - (0.9 * var(--workspace-icon-width) + 3.6px) * (1 - 0.18/1.18)));
+        opacity: 1;
+    }
+}
+
+.selection-folder .exit {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.selection-folder .exit img {
+    height: calc((0.9 * var(--workspace-icon-width) + 3.6px) / 1.18 * (0.65 + 0.35 * var(--folder-stack-icon-index-parameter)));
+    animation-name: folderStackIconOut;
+    animation-duration: 195ms;
+    animation-fill-mode: both;
+}
+
+@keyframes folderStackIconOut {
+    0% {
+        transform: translateY(calc(var(--workspace-icon-width) + 4px - (0.9 * var(--workspace-icon-width) + 3.6px) * (1 - 0.18/1.18 * var(--folder-stack-icon-index-parameter))));
+        opacity: 1;
+    }
+    75% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(0px);
+    }
+}
+
+.selection-folder[class~=stable]>img:nth-last-of-type(1), .selection-folder[class~=stable]>img:nth-last-of-type(2), .selection-folder[class~=stable]>img:nth-last-of-type(3), .selection-folder[class~=stable]>img:nth-last-of-type(4) {
+    height: calc((0.9 * var(--workspace-icon-width) + 3.6px) / 1.18 * (0.65 + 0.35 * var(--folder-stack-icon-index-parameter)));
+    transform: translateY(calc(var(--workspace-icon-width) + 4px - (0.9 * var(--workspace-icon-width) + 3.6px) * (1 - 0.18/1.18 * var(--folder-stack-icon-index-parameter))));
+    transition-timing-function: var(--standard-curve);
+}
+
+.selection-folder[class~=stable]>img:nth-last-of-type(1) {
+    --folder-stack-icon-index-parameter: 1;
+}
+
+.selection-folder[class~=stable]>img:nth-last-of-type(2) {
+    --folder-stack-icon-index-parameter: 0.5;
+}
+
+.selection-folder[class~=stable]>img:nth-last-of-type(3) {
+    --folder-stack-icon-index-parameter: 0;
+}
+
+.selection-folder[class~=stable]>img:nth-last-of-type(4) {
+    --folder-stack-icon-index-parameter: -0.5;
+}
+
+.selection-folder>img:last-of-type, .selection-folder[class~=stable]>img:nth-last-of-type(2), .selection-folder[class~=stable]>img:nth-last-of-type(3) {
+    opacity: 1;
+}
+
+.selection-folder[class~=item-exit]>img {
+    transition-duration: 195ms;
+}
+
+.selection-names {
+    height: var(--increment);
+    display: flex;
+    flex-wrap: wrap;
+    padding-left: calc(var(--folder-icon-width) + 2 * var(--keyline));
+    padding-right: var(--keyline);
+    align-items: center;
+    font-size: 20px;
+    letter-spacing: 0.02em;
+    color: var(--primary-text-color);
+}
+
+.selection-names>span[class~=off] {
+    display: none;
+}
+
+.selection-names>span:not(.selection-counter):before {
+    content: '、';
+}
+
+.selection-names span:first-of-type:before {
+    content: unset;
+}
+
+.selection-counter {
+    display: none;
+}
+
+.selection-counter::before {
+    content: '等';
+}
+
+.selection-counter::after {
+    content: '个应用';
+}
+
+.selection-counter[class~=on] {
+    display: unset;
+}
+
+.selection-action {
+    --selection-action-height: calc(var(--increment) - 16px);
+    height: var(--selection-action-height);
+    display: none;
+    align-items: center;
+    animation-duration: 225ms;
+    animation-timing-function: var(--standard-curve);
+    color: var(--primary-text-color);
+}
+
+#freeze-selected {
+    --selection-action-height: calc(var(--increment) - 8px);
+}
+
+.selection-action[class~=on] {
+    display: flex;
+}
+
+.selection-action[class~=enter] {
+    animation-name: selectionActionIn;
+}
+
+@keyframes selectionActionIn {
+    0% {
+        opacity: 0;
+        height: 0px;
+    }
+    30% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+        height: var(--selection-action-height);
+    }
+}
+
+.selection-action[class~=exit] {
+    animation-name: selectionActionOut;
+}
+
+@keyframes selectionActionOut {
+    0% {
+        opacity: 1;
+        height: var(--selection-action-height);
+    }
+    50% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 0;
+        height: 0px;
+    }
+}
+
+.selection-action i {
+    width: calc(var(--folder-icon-width) + 2 * var(--keyline));
+    color: var(--secondary-text-color);
+}
+
+#freeze-selected i {
+    font-size: 36px;
+    color: var(--primary-color);
+}
+
+.control-panel .divider {
+    margin: 8px 0;
+    padding-left: calc(var(--folder-icon-width) + 2 * var(--keyline));
+}
+
+.system-bars-background {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.system-bars-background .status-bar {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    clip-path: inset(0 0 calc(100% - 24px) 0);
+}
+
+.secondary-actions-layer {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    visibility: hidden;
+    will-change: clip-path;
+    animation-timing-function: var(--standard-curve);
+}
+
+.secondary-actions[class~=on]~.system-bars-background .secondary-actions-layer {
+    visibility: visible;
+}
+
+.system-bars-background .secondary-actions-layer::before {
+    content: "";
+    width: 100%;
+    height: 100%;
+    animation-timing-function: var(--standard-curve);
+}
+
+.system-bars-background .navigation-bar {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    clip-path: inset(calc(100% - 48px) 0 0 0);
+}
+
+.system-bars-background .navigation-bar::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    max-width: 768px;
+    height: var(--sheet-height);
+    background-color: rgba(0, 0, 0, 0.38);
+}
+
+/*------------------------------------*\
+  模拟器跨屏幕设定--360
+\*------------------------------------*/
+
+.simulator[data-simulator-width='360'] {
+    --simulator-width: 360px;
+    --simulator-height: 640px;
+    --navigation-bar-key-width: 80px;
+    --navigation-bar-key-margin: 10px;
+    --workspace-padding: 0 4px;
+    --workspace-icon-width: 60px;
+    --workspace-font-size: 13px;
+    --workspace-grid-columns: 4;
+    --workspace-grid-rows: 4;
+    --hotseat-padding: 0 12px;
+    --hotseat-icon-width: 56px;
+    --hotseat-grid-columns: 5;
+    --launcher-search-bar-width: calc(100% - var(--keyline));
+    --folder-icon-width: 60px;
+    --ice-box-grid-columns: 4;
+}
+
+.simulator[data-simulator-width='360'] .system {
+    --increment: 56px;
+    --keyline: 16px;
+}
+
+.simulator[data-simulator-width='360'] .applications {
+    flex-direction: column;
+}
+
+.simulator[data-simulator-width='360'] .selection-action span {
+    font-size: 14px;
+    letter-spacing: 0.02em;
+}
+
+/*------------------------------------*\
+  模拟器跨屏幕设定--600
+\*------------------------------------*/
+
+.simulator[data-simulator-width='600'] {
+    --simulator-width: 600px;
+    --simulator-height: 960px;
+    --navigation-bar-key-width: 128px;
+    --navigation-bar-key-margin: 0px;
+    --workspace-padding: 0;
+    --workspace-icon-width: 72px;
+    --workspace-font-size: 14.4px;
+    --workspace-grid-columns: 6;
+    --workspace-grid-rows: 5;
+    --hotseat-padding: 0 6px 12px 6px;
+    --hotseat-icon-width: 60px;
+    --hotseat-grid-columns: 7;
+    --launcher-search-bar-width: 512px;
+}
+
+.simulator[data-simulator-width="600"] .hotseat img:first-child {
+    grid-column: 2/3;
+}
+
+.simulator[data-simulator-width='600'] #ice-box {
+    --folder-icon-width: 70px;
+    --ice-box-grid-columns: 6;
+}
+
+.simulator[data-simulator-width='600'] .applications {
+    flex-direction: column;
+}
+
+.simulator[data-simulator-width="600"] .secondary-actions .tab-bar button {
+    min-width: 160px;
+}
+
+.simulator[data-simulator-width="600"] .edit-list li>span {
+    font-size: 16px;
+    line-height: 20px;
+}
+
+.simulator[data-simulator-width="600"] .edit-list li>span>span {
+    font-size: 14px;
+    margin-top: 1px;
+    margin-bottom: -3px;
+}
+
+.simulator[data-simulator-width='600'] .selection-action span {
+    font-size: 16px;
+    letter-spacing: 0.02em;
+}
+
+/*------------------------------------*\
+  模拟器跨屏幕设定--1024
+\*------------------------------------*/
+
+.simulator[data-simulator-width='1024'] {
+    --simulator-width: 1024px;
+    --simulator-height: 768px;
+    --navigation-bar-key-width: 162px;
+    --navigation-bar-key-margin: 0px;
+    --workspace-padding: 0 62px;
+    --workspace-icon-width: 72px;
+    --workspace-font-size: 14.4px;
+    --workspace-grid-columns: 6;
+    --workspace-grid-rows: 5;
+    --hotseat-padding: 0 68px 12px 68px;
+    --hotseat-icon-width: 60px;
+    --hotseat-grid-columns: 7;
+    --launcher-search-bar-width: 640px;
+}
+
+.simulator[data-simulator-width="1024"] .hotseat img:first-child {
+    grid-column: 2/3;
+}
+
+.simulator[data-simulator-width='1024'] #ice-box {
+    --folder-icon-width: 70px;
+    --ice-box-grid-columns: 7;
+    --sheet-height-decrement: 32px;
+    --status-bar-increment: 0px;
+}
+
+.simulator[data-simulator-width="1024"] #ice-box .system-bars-background .status-bar {
+    display: none;
+}
+
+.simulator[data-simulator-width="1024"] #ice-box>.sheet {
+    max-height: calc(100% - var(--sheet-height-decrement));
+    border-radius: 2px 2px 0 0;
+}
+
+.simulator[data-simulator-width="1024"] #ice-box .pages {
+    padding-left: 6px;
+    padding-right: 6px;
+}
+
+.simulator[data-simulator-width="1024"] .secondary-actions {
+    max-height: calc(100% - var(--sheet-height-decrement));
+}
+
+.simulator[data-simulator-width="1024"] .secondary-actions>div {
+    border-radius: 2px 2px 0 0;
+}
+
+.simulator[data-simulator-width="1024"] .secondary-actions .tab-bar button {
+    min-width: 160px;
+}
+
+.simulator[data-simulator-width="1024"] .edit-list li>span {
+    font-size: 16px;
+    line-height: 20px;
+}
+
+.simulator[data-simulator-width="1024"] .edit-list li>span>span {
+    font-size: 14px;
+    margin-top: 1px;
+    margin-bottom: -3px;
+}
+
+.simulator[data-simulator-width="1024"] .menu-wrapper {
+    padding-top: 32px;
+}
+
+.simulator[data-simulator-width='1024'] .selection-action span {
+    font-size: 16px;
+    letter-spacing: 0.02em;
+}
+
+/*------------------------------------*\
+  说明信息
+\*------------------------------------*/
+
+.extra-information {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 0 calc(var(--keyline) - 12px);
+    margin-bottom: var(--increment);
+}
+
+.extra-information .card {
+    width: calc(var(--increment) * 5);
+    box-shadow: var(--shadow-z2);
+    margin: 0 calc(var(--keyline) / 2) var(--keyline) calc(var(--keyline) / 2);
+}
+
+.extra-information .card h6 {
+    line-height: 30px;
+    padding: 18px 16px 9px 16px;
+}
+
+.extra-information .card p {
+    color: var(--secondary-text-color);
+    line-height: 26px;
+    padding: 0 16px 7px 16px;
+}
+
+/*------------------------------------*\
+  站点跨屏幕设定
+\*------------------------------------*/
+
+@media screen and (max-width:1168px) {
+    .simulator-width-controller {
+        width: 600px;
+    }
+    .dp1024 {
+        display: none;
+    }
+}
+
+@media screen and (max-width:744px) {
+    body {
+        --increment: 56px;
+        --keyline: 16px;
+    }
+    .simulator-width-controller {
+        display: none;
+    }
+}
+
+@media screen and (max-width:504px) {
+    body>.app-bar h6 {
+        display: unset;
+    }
+}
+
+@media (prefers-color-scheme: light) {
+    html, body {
+        background-color: #f5f5f5;
+    }
+    .simulator-width-controller {
+        background-color: #eeeeee;
+    }
+    .simulator-width-controller>div[class~=on] {
+        background-color: #e0e0e0;
+    }
+    .simulator-width-controller>div:hover {
+        background-color: #616161;
+    }
+    .simulator-width-controller>div {
+        border-color: #616161;
+    }
+    .simulator-width-controller>div:hover+div, .simulator-width-controller>div:hover+div+div {
+        border-color: #eeeeee;
+    }
+    #ice-box {
+        --sheet-darken-value: 0.6;
+    }
+    .sheet {
+        background-color: #f5f5f5;
+    }
+    .sheet::before {
+        border-top: 1px solid rgba(255, 255, 255, 0.4);
+        border-bottom: 1px solid rgba(33, 33, 33, 0.1);
+    }
+    .main-actions .button:not(#frozen-all) {
+        background-color: rgba(245, 245, 245, 0.7);
+        color: #616161;
+    }
+    .page button i, .drag-temp i {
+        background-color: #f5f5f5;
+        border: 1px solid #f5f5f5;
+    }
+    .secondary-actions>div {
+        background-color: #fafafa;
+    }
+    .system-bars-background .secondary-actions-layer::before {
+        background: #e0e0e0;
+    }
+    .system-bars .status-bar[class~=dark] {
+        color: rgba(0, 0, 0, 0.6);
+    }
+    .system-bars .status-bar[class~=darken] {
+        animation-name: statusBarDarken;
+        animation-delay: 250ms;
+    }
+    @keyframes statusBarDarken {
+        0% {
+            color: rgba(255, 255, 255, 0.9);
+        }
+        100% {
+            color: rgba(0, 0, 0, 0.6);
+        }
+    }
+    .system-bars .status-bar[class~=lighten] {
+        animation-name: statusBarLighten;
+    }
+    @keyframes statusBarLighten {
+        0% {
+            color: rgba(0, 0, 0, 0.6);
+        }
+        100% {
+            color: rgba(255, 255, 255, 0.9);
+        }
+    }
+    .edit-list .freeze {
+        background-color: #e1f5fe;
+    }
+    .edit-list .lists li {
+        --primary-color: var(--secondary-text-color);
+    }
+    .control-panel {
+        background-color: #fafafa;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    html, body {
+        background-color: #121212;
+    }
+    .simulator-width-controller {
+        background-color: #424242;
+    }
+    .simulator-width-controller>div[class~=on] {
+        background-color: #616161;
+    }
+    .simulator-width-controller>div:hover {
+        background-color: #E0E0E0;
+    }
+    .simulator-width-controller>div {
+        border-color: #E0E0E0;
+    }
+    .simulator-width-controller>div:hover+div, .simulator-width-controller>div:hover+div+div {
+        border-color: #424242;
+    }
+    #ice-box {
+        --sheet-darken-value: 0;
+    }
+    .sheet {
+        background-color: #212121;
+    }
+    .sheet::before {
+        border-top: 1px solid rgba(255, 255, 255, 0.2);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    }
+    .main-actions .button:not(#frozen-all) {
+        background-color: rgba(33, 33, 33, 0.7);
+        color: #e0e0e0;
+    }
+    .page button i, .drag-temp i {
+        background-color: #212121;
+        border: 1px solid #212121;
+    }
+    .secondary-actions>div {
+        background-color: #303030;
+    }
+    .system-bars-background .secondary-actions-layer::before {
+        background: #000000;
+    }
+    .edit-list .freeze {
+        background-color: #01579B;
+    }
+    .edit-list .lists li {
+        --primary-color: var(--primary-text-color);
+    }
+    .control-panel {
+        background-color: #303030;
+    }
+}

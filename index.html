@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="冰箱的经典质感设计回眸。">
+    <title>推叠 - 冰箱</title>
+    <link rel="icon" href="./resources/snowflake.svg">
+    <link
+        href="https://fonts.googleapis.com/css?family=Noto+Sans+SC:400,500|Roboto+Condensed|Roboto:400,500&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="./styles/components.css">
+    <link rel="stylesheet" href="./styles/global.css">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script defer src="./scripts/global.js"></script>
+    <script defer src="./scripts/components.js"></script>
+</head>
+
+<body>
+    <div class="app-bar">
+        <div class="start">
+            <button class="button icon-button" onclick="window.open('https://tilextend.github.io')">
+                <i class="material-icons">arrow_back</i>
+            </button>
+            <h6>冰箱</h6>
+        </div>
+        <div class="end">
+            <button class="button icon-button">
+                <i id="theme-switch" class="material-icons">brightness_medium</i>
+            </button>
+        </div>
+        <div class="simulator-width-controller">
+            <div class="dp1024"></div>
+            <div class="dp600"></div>
+            <div class="dp360 on"></div>
+        </div>
+    </div>
+
+    <div class="simulator" data-simulator-width="360">
+        <div class="system">
+            <div class="launcher-background"></div>
+            <div class="launcher-home">
+                <div class="search-bar">
+                    <img class="google-logo" src="./resources/Google.svg">
+                    <span class="subheading">请说 “OK Google”</span>
+                    <img class="voice-command" src="./resources/google-voice-command.svg">
+                </div>
+                <div class="workspace">
+                    <div class="launcher-app">
+                        <img src="./resources/product_icons/ice_box.png">
+                        <span>冰箱</span>
+                    </div>
+                </div>
+                <div class="page-indicator">
+                    <span class="dot"></span>
+                </div>
+                <div class="hotseat">
+                    <img src="./resources/product_icons/phone.png">
+                    <img src="./resources/product_icons/messager.png">
+                    <img id="all-apps-button" src="./resources/all_apps.png">
+                    <img src="./resources/product_icons/chrome.webp">
+                    <img src="./resources/product_icons/google_camera.png">
+                </div>
+            </div>
+            <div class="applications">
+                <div id="ice-box" class="application">
+                    <div class="scrim"></div>
+                    <div class="sheet">
+                        <div class="tab-bar off">
+                            <button class="button active"><span class="body2">默认页</span><i
+                                    class="material-icons">arrow_drop_down</i></button>
+                            <button class="button "><span class="body2">拖动到此新建页</span></button>
+                        </div>
+                        <div class="pages">
+                            <div class="page">
+                                <button class="unbounded" data-app-id="tieba">
+                                    <img src="./resources/product_icons/tieba.png">
+                                    <span class="caption">百度贴吧</span>
+                                    <i class="material-icons">check_circle</i>
+                                </button>
+                                <button class="unbounded freeze" data-app-id="coomix">
+                                    <img src="./resources/product_icons/coomix.png">
+                                    <span class="caption">酷米客</span>
+                                    <i class="material-icons">check_circle</i>
+                                </button>
+                                <button class="unbounded freeze" data-app-id="remotecontroller">
+                                    <img src="./resources/product_icons/remotecontroller.png">
+                                    <span class="caption">万能遥控</span>
+                                    <i class="material-icons">check_circle</i>
+                                </button>
+                                <button class="unbounded" data-app-id="cloudmusic">
+                                    <img src="./resources/product_icons/cloudmusic.png">
+                                    <span class="caption">网易云音乐</span>
+                                    <i class="material-icons">check_circle</i>
+                                </button>
+                                <button class="unbounded freeze" data-app-id="alipay">
+                                    <img src="./resources/product_icons/alipay.png">
+                                    <span class="caption">支付宝</span>
+                                    <i class="material-icons">check_circle</i>
+                                </button>
+                                <button class="unbounded" data-app-id="qq">
+                                    <img src="./resources/product_icons/qq.png">
+                                    <span class="caption">QQ</span>
+                                    <i class="material-icons">check_circle</i>
+                                </button>
+                                <button class="unbounded" data-app-id="wechat">
+                                    <img src="./resources/product_icons/wechat.png">
+                                    <span class="caption">微信</span>
+                                    <i class="material-icons">check_circle</i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="secondary-actions">
+                        <div class="edit-list">
+                            <ul class="lists">
+                                <li class="list archived" data-app-id="tieba">
+                                    <img src="./resources/product_icons/tieba.png">
+                                    <span>百度贴吧<span>com.baidu.tieba</span></span>
+                                    <i class="check-box icon-button checked"><svg xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 24 24">
+                                            <path /></svg></i>
+                                </li>
+                                <li class="list archived freeze" data-app-id="coomix">
+                                    <img src="./resources/product_icons/coomix.png">
+                                    <span class="body1">酷米客<span>com.coomix.app.bus</span></span>
+                                    <i class="check-box icon-button checked"><svg xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 24 24">
+                                            <path /></svg></i>
+                                </li>
+                                <li class="list archived freeze" data-app-id="remotecontroller">
+                                    <img src="./resources/product_icons/remotecontroller.png">
+                                    <span class="body1">万能遥控<span>com.doukan.phone.remotecontroller</span></span>
+                                    <i class="check-box icon-button checked"><svg xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 24 24">
+                                            <path /></svg></i>
+                                </li>
+                                <li class="list archived" data-app-id="cloudmusic">
+                                    <img src="./resources/product_icons/cloudmusic.png">
+                                    <span class="body1">网易云音乐<span>com.netease.cloudmusic</span></span>
+                                    <i class="check-box icon-button checked"><svg xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 24 24">
+                                            <path /></svg></i>
+                                </li>
+                                <li class="list archived freeze" data-app-id="alipay">
+                                    <img src="./resources/product_icons/alipay.png">
+                                    <span class="body1">支付宝<span>com.eg.android.AlipayGphone</span></span>
+                                    <i class="check-box icon-button checked"><svg xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 24 24">
+                                            <path /></svg></i>
+                                </li>
+                                <li class="list archived" data-app-id="qq">
+                                    <img src="./resources/product_icons/qq.png">
+                                    <span class="body1">QQ<span>com.tencent.mobileqq</span></span>
+                                    <i class="check-box icon-button checked"><svg xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 24 24">
+                                            <path /></svg></i>
+                                </li>
+                                <li class="list archived" data-app-id="wechat">
+                                    <img src="./resources/product_icons/wechat.png">
+                                    <span class="body1">微信<span>com.tencent.mm</span></span>
+                                    <i class="check-box icon-button checked"><svg xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 24 24">
+                                            <path /></svg></i>
+                                </li>
+                            </ul>
+                            <div class="app-bar">
+                                <div class="start">
+                                    <div class="tab-bar">
+                                        <button class="button active"><span class="subheading">用户</span></button>
+                                        <button class="button"><span class="subheading">系统</span></button>
+                                    </div>
+                                </div>
+                                <div class="end">
+                                    <button class="button icon-button">
+                                        <i class="material-icons">search</i>
+                                    </button>
+                                    <button id="list-filter" class="button icon-button">
+                                        <i class="material-icons">filter_list</i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="settings">
+                            <div class="app-bar">
+                                <div class="start">
+                                    <h6>设置</h6>
+                                </div>
+                                <div class="end">
+                                    <button class="button icon-button">
+                                        <i class="material-icons">help_outline</i>
+                                    </button>
+                                    <button class="button icon-button">
+                                        <i class="material-icons">info_outline</i>
+                                    </button>
+                                </div>
+                            </div>
+                            <ul class="lists">
+                                <li class="subheader"><span class="body2">功能</span></li>
+                                <li id="auto-freeze" class="list one"><span class="subheading">自动冻结</span></li>
+                                <li class="divider"></li>
+                                <li id="security" class="list one"><span class="subheading">安全</span></li>
+                                <li class="divider"></li>
+                                <li id="auto-add" class="list two">
+                                    <span class="subheading">新应用自动添加至冰冻列表<span class="body1">从不</span></span>
+                                </li>
+                                <li class="divider"></li>
+                                <li id="shortcut" class="list one"><span class="subheading">快捷方式</span></li>
+                                <li class="divider"></li>
+                                <li class="subheader"><span class="body2">高级操作</span></li>
+                                <li id="backup" class="list one"><span class="subheading">备份</span></li>
+                                <li class="divider"></li>
+                                <li id="laboratory" class="list one"><span class="subheading">实验室</span></li>
+                                <li class="divider"></li>
+                                <li id="defrost-all" class="list one"><span class="subheading">解冻所有应用</span></li>
+                                <li class="divider"></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="main-actions">
+                        <button id="edit" class="button icon-button">
+                            <i class="material-icons">edit</i>
+                        </button>
+                        <button id="frozen-all" class="button icon-button fab">
+                            <i class="material-icons alt">snowflake</i>
+                        </button>
+                        <button id="settings" class="button icon-button">
+                            <i class="material-icons">settings</i>
+                        </button>
+                    </div>
+                    <div id="filter-menu" class="menu-wrapper">
+                        <div class="menu">
+                            <ul>
+                                <li class="subheader"><span class="body2">排序</span></li>
+                                <li class="list one">
+                                    <span class="subheading">按名称</span>
+                                    <i class="radio-button icon-button checked">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                            <path />
+                                        </svg>
+                                    </i>
+                                </li>
+                                <li class="list one">
+                                    <span class="subheading">按更新时间</span>
+                                    <i class="radio-button icon-button unchecked">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                            <path />
+                                        </svg>
+                                    </i>
+                                </li>
+                                <li class="subheader"><span class="body2">选项</span></li>
+                                <li class="list one">
+                                    <span class="subheading">包括隐藏应用</span>
+                                    <i class="check-box icon-button unchecked">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                            <path />
+                                        </svg>
+                                    </i>
+                                </li>
+                                <li class="list one">
+                                    <span class="subheading">仅显示已冻结</span>
+                                    <i class="check-box icon-button unchecked">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                            <path />
+                                        </svg>
+                                    </i>
+                                </li>
+                                <li class="list one">
+                                    <span class="subheading">仅显示不在冻结列表</span>
+                                    <i class="check-box icon-button unchecked">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                            <path />
+                                        </svg>
+                                    </i>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="control-panel">
+                        <div class="selection-folder">
+                            <div class="folder-body"></div>
+                        </div>
+                        <div class="selection-names"><span class="selection-counter">0</span></div>
+                        <div id="freeze-selected" class="selection-action">
+                            <i class="material-icons alt">snowflake</i>
+                            <span>冻结</span>
+                        </div>
+                        <div id="defrost-selected" class="selection-action">
+                            <i class="material-icons">brightness_high</i>
+                            <span>解冻</span>
+                        </div>
+                        <li class="divider"></li>
+                        <div id="move-out" class="selection-action on">
+                            <i class="material-icons">remove_circle_outline</i>
+                            <span>移出冰冻列表</span>
+                        </div>
+                        <div id="add-shortcut" class="selection-action on">
+                            <i class="material-icons">open_in_new</i>
+                            <span>创建桌面快捷方式</span>
+                        </div>
+                    </div>
+                    <div class="system-bars-background">
+                        <div class="status-bar">
+                            <div class="secondary-actions-layer"></div>
+                        </div>
+                        <div class="navigation-bar"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="system-bars">
+                <div class="status-bar">
+                    <div class="system-status">
+                        <i class="wifi material-icons">signal_wifi_4_bar</i>
+                        <i class="signal material-icons">signal_cellular_4_bar</i>
+                        <i class="battery material-icons alt">sysbar_battery</i>
+                    </div>
+                    <span class="body2">12:30</span>
+                </div>
+                <div class="navigation-bar">
+                    <div class="navigation-bar-ripples"></div>
+                    <i id="back" class="material-icons alt">sysbar_back</i>
+                    <i id="home" class="material-icons alt">sysbar_home</i>
+                    <i id="recent" class="material-icons alt">sysbar_recent</i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="extra-information">
+        <div class="card">
+            <h6>下载应用程序</h6>
+            <p class="body1">冰箱是一个冻结不常用应用程序的工具，有效地防止它们在后台运行，省电省流量。</p>
+            <div class="buttons">
+                <button class="button" onclick="window.open('https://www.coolapk.com/apk/com.catchingnow.icebox')">
+                    <span class="body2">酷安</span>
+                </button>
+                <button class="button"
+                    onclick="window.open('https://play.google.com/store/apps/details?id=com.catchingnow.icebox')">
+                    <span class="body2">Google Play</span>
+                </button>
+            </div>
+        </div>
+        <div class="card">
+            <h6>下载设计源文件</h6>
+            <p class="body1">最后更新日期：2018/7/25</p>
+            <div class="buttons">
+                <button class="button" onclick="window.open('https://pan.baidu.com/s/1u-7M7cnJY3yCO3pGXZAu3w')">
+                    <span class="body2">百度网盘</span>
+                </button>
+                <button class="button"
+                    onclick="window.open('https://drive.google.com/open?id=1_2wd0Lpt9_e3_Xd6voxggHdSZK1-Cu0p')">
+                    <span class="body2">Google Drive</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="snackbar fixed">
+        <p class="body2">请前往系统设置选择主题模式，本站将自动跟随明暗主题。</p>
+    </div>
+
+</body>
+
+</html>
