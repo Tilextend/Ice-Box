@@ -154,6 +154,11 @@ h1, h2, h3, h4, h5, h6, p {
     transition-timing-function: linear;
 }
 
+.unbounded .ripple-background {
+    width: var(--ripple-diameter);
+    height: var(--ripple-diameter);
+}
+
 .ripple-background[class~=on] {
     transition-duration: 120ms;
     opacity: var(--hover-alpha);
@@ -361,9 +366,7 @@ h1, h2, h3, h4, h5, h6, p {
     margin-left: 8px;
 }
 
-.fab::before,
-.card::before,
-.menu ul::before {
+.fab::before, .card::before, .menu ul::before {
     content: "";
     position: absolute;
     top: 0;
@@ -834,8 +837,7 @@ h6, .title {
     .app-bar {
         background-color: #f5f5f5;
     }
-    .card::before,
-    .menu ul::before {
+    .card::before, .menu ul::before {
         border-top: 1px solid rgba(255, 255, 255, 0.4);
         border-bottom: 1px solid rgba(33, 33, 33, 0.1);
     }
@@ -854,8 +856,7 @@ h6, .title {
     .app-bar {
         background-color: #212121;
     }
-    .card::before,
-    .menu ul::before {
+    .card::before, .menu ul::before {
         border-top: 1px solid rgba(255, 255, 255, 0.2);
         border-bottom: 1px solid rgba(0, 0, 0, 0.2);
     }

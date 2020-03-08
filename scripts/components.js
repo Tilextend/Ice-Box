@@ -52,83 +52,87 @@ $(focusElements).on("blur", function () {
 
 
 //涟漪：
-let inputLeft, inputTop, parentElement, parentLeft, parentTop, rippleOriginLeft, rippleOriginTop, rippleBackgroundFullOn;
+let rippleBackgroundFullOn = false;
+let rippleTouchStart = false;
 
-function rippleForeground() {
-    containerWidth = parentElement.children('.ripples').innerWidth();
-    containerHeight = parentElement.children('.ripples').innerHeight();
-    containerLeft = parentElement.children('.ripples').offset().left;
-    containerTop = parentElement.children('.ripples').offset().top;
-    rippleOriginLeft = Math.abs(containerLeft - inputLeft);
-    rippleOriginTop = Math.abs(containerTop - inputTop);
+$(pressedElements).on("touchstart", function (rippleTouchEvent) {
+    rippleTouchStart = true;
+    rippleBackgroundFullOn = false;
+
+    rippleForeground($(this), rippleTouchEvent);
+    rippleBackground($(this));
+});
+
+$(pressedElements).on("keydown", function (rippleKeyboardEvent) {
+    if (rippleKeyboardEvent.key !== " " && rippleKeyboardEvent.key !== "Enter") {
+        return;
+    }
+
+    rippleForeground($(this), rippleKeyboardEvent);
+});
+
+$(pressedElements).on("mousedown", function (rippleMouseEvent) {
+    if (rippleMouseEvent.button !== 0 || rippleTouchStart == true) {
+        return;
+    }
+
+    rippleForeground($(this), rippleMouseEvent);
+});
+
+function rippleForeground(parentElement, rippleInputEvent) {
+    containerWidth = parentElement.innerWidth();
+    containerHeight = parentElement.innerHeight();
+    containerLeft = parentElement.offset().left;
+    containerTop = parentElement.offset().top;
+
+    parentElement.children('.ripples').css({
+        "--ripple-diameter": Math.hypot(containerWidth, containerHeight) + "px"
+    });
 
     parentElement.children('.ripples').append('<div class="ripple-foreground"></div>');
 
-    parentElement.children('.ripples').children(".ripple-foreground:last").css({
-        "--targets-center-offset-x": containerWidth / 2 - rippleOriginLeft + "px",
-        "--targets-center-offset-y": containerHeight / 2 - rippleOriginTop + "px",
-        "--ripple-diameter": Math.hypot(containerWidth, containerHeight) + "px",
-        "--ripple-origin-left": rippleOriginLeft + "px",
-        "--ripple-origin-top": rippleOriginTop + "px"
-    });
+    if (rippleInputEvent.type == "mousedown") {
+        inputLeft = rippleInputEvent.pageX;
+        inputTop = rippleInputEvent.pageY;
+    }
+    if (rippleInputEvent.type == "touchstart") {
+        inputLeft = rippleInputEvent.changedTouches[0].pageX;
+        inputTop = rippleInputEvent.changedTouches[0].pageY;
+    }
+    if (rippleInputEvent.type == "mousedown" || rippleInputEvent.type == "touchstart") {
+        rippleOriginLeft = Math.abs(containerLeft - inputLeft);
+        rippleOriginTop = Math.abs(containerTop - inputTop);
+        parentElement.find(".ripple-foreground:last").first().css({
+            "--targets-center-offset-x": containerWidth / 2 - rippleOriginLeft + "px",
+            "--targets-center-offset-y": containerHeight / 2 - rippleOriginTop + "px",
+            "--ripple-origin-left": rippleOriginLeft + "px",
+            "--ripple-origin-top": rippleOriginTop + "px"
+        });
+    }
 
     requestAnimationFrame(function () {
-        parentElement.children('.ripples').children(".ripple-foreground:last").addClass('on');
-        parentElement.children('.ripples').children(".ripple-foreground").one('animationend', function () {
+        parentElement.find(".ripple-foreground:last").first().addClass('on');
+        parentElement.find(".ripple-foreground:last").first().one('animationend', function () {
             $(this).remove();
         });
     });
 }
 
-function rippleBackground() {
-    parentElement.children('.ripples').children(".ripple-background").css({
-        "--ripple-diameter": Math.hypot(containerWidth, containerHeight) + "px"
-    });
-
-    parentElement.children('.ripples').children(".ripple-background").addClass('on');
-    parentElement.children('.ripples').children(".ripple-background").one('transitionend', function () {
+function rippleBackground(parentElement) {
+    parentElement.find(".ripple-background").first().addClass('on');
+    parentElement.find(".ripple-background").first().one('transitionend', function () {
         rippleBackgroundFullOn = true;
     });
     parentElement.one("touchend", function () {
-        $(this).removeClass('pressed');
         if (rippleBackgroundFullOn == true) {
-            $(this).children('.ripples').children(".ripple-background").removeClass('on');
+            $(this).find(".ripple-background").first().removeClass('on');
         } else {
             $(this).one('transitionend', function () {
-                $(this).children('.ripples').children(".ripple-background").removeClass('on');
+                $(this).find(".ripple-background").first().removeClass('on');
             });
         }
     });
 }
-
-$(pressedElements).on("mousedown", function (rippleMouseEvent) {
-    if (rippleMouseEvent.button === 0 && !touchCompatibility) {
-        $(this).addClass('pressed');
-        parentElement = $(this);
-        inputLeft = rippleMouseEvent.pageX;
-        inputTop = rippleMouseEvent.pageY;
-
-        rippleForeground();
-    }
-});
-
-$(pressedElements).on("mouseup", function () {
-    $(this).removeClass('pressed');
-});
-
-$(pressedElements).on("touchstart", function (rippleTouchEvent) {
-    $(this).addClass('pressed');
-    parentElement = $(this);
-    rippleBackgroundFullOn = false;
-    inputLeft = rippleTouchEvent.changedTouches[0].pageX;
-    inputTop = rippleTouchEvent.changedTouches[0].pageY;
-
-    rippleForeground();
-    rippleBackground();
-});
-
-/*标签栏*/
-
 
 /*控件*/
 
